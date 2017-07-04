@@ -16,6 +16,7 @@ int main()
 {
 	cv::Mat raw_image, grey_image;
 	cv::VideoCapture video_capture(0);
+	video_capture.set(CV_CAP_PROP_FPS, 120);
 
 	AprilTags::TagCodes tag_code(AprilTags::tagCodes36h11);
 	AprilTags::TagDetector tag_detector(tag_code);
