@@ -48,7 +48,11 @@ int main()
 		duration = (end - start) / getTickFrequency();
 		fps = 1.0f / duration;
 
-		printf("[fps: %.2f] Detected %lu tags.\n", fps, detections.size());
+		if(detections.size() > 0) {
+			printf("[fps: %.2f] tag detected, id = %d.\n", fps, detections.at(0).id);
+		} else {
+			printf("[fps: %.2f] no tag was found.\n", fps);	
+		}
 	}
 
 	return 0;
