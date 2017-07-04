@@ -1,16 +1,16 @@
-# Apriltags test example
+# AprilTag test example
 
-# Requirement
+## Requirement
 
 * OpenCV3.0
 
-#Build
+## Build
 
 ```
 make
 ```
 
-# Run
+## Run
 
 ```
 ./apriltag_test
