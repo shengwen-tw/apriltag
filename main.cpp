@@ -1,21 +1,54 @@
+#include <sys/time.h>
+
 #include "opencv2/highgui.hpp"
 #include "opencv2/videoio.hpp"
+
+#include "AprilTags/TagDetector.h"
+#include "AprilTags/Tag16h5.h"
+#include "AprilTags/Tag25h7.h"
+#include "AprilTags/Tag25h9.h"
+#include "AprilTags/Tag36h9.h"
+#include "AprilTags/Tag36h11.h"
 
 using namespace cv;
 
 int main()
 {
-	cv::Mat frame;
-	cv::VideoCapture cap(0);
+	cv::Mat raw_image, grey_image;
+	cv::VideoCapture video_capture(0);
 
-	if(cap.isOpened() != true) {
-        	return -1;
+	AprilTags::TagCodes tag_code(AprilTags::tagCodes36h11);
+	AprilTags::TagDetector tag_detector(tag_code);
+
+	if(video_capture.isOpened() == false) {
+		printf("Failed to open the camera!\n");
+        	return 0;
 	}
 
-	while(cap.read(frame)){   
-		cv::Mat src = cv::Mat(frame);
-		cv::imshow( "window",  src );
+	float start, end;
+	float duration, fps;
+
+	while(video_capture.read(raw_image)) {
+		//start timer
+		start = getTickCount();
+
+		//convert to grey image
+		cv::cvtColor(raw_image, grey_image, CV_BGR2GRAY);
+
+		//detect Apriltags
+		vector<AprilTags::TagDetection> detections = tag_detector.extractTags(grey_image);		
+
+		cv::imshow("window", raw_image);
 		cv::waitKey(30);
+
+		//stop timer
+		end = getTickCount();
+
+		//calcuate fps
+		duration = (end - start) / getTickFrequency();
+		fps = 1.0f / duration;
+
+		printf("[fps: %.2f] Detected %lu tags.\n", fps, detections.size());
 	}
 
 	return 0;
