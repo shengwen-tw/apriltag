@@ -5,9 +5,11 @@ EXECUTABLE=apriltag_test
 #compiler
 CC=g++
 
+CFAGS=-Ofast
+
 #################################################################
 #include files
-CFLAGS=`pkg-config opencv --cflags` `pkg-config opencv --libs`
+CFLAGS+=`pkg-config opencv --cflags` `pkg-config opencv --libs`
 CFLAGS+=`pkg-config eigen3  --cflags`
 
 CFLAGS+=-I./libapriltags/include/AprilTags
