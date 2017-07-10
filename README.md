@@ -1,19 +1,23 @@
 # AprilTag test example
 
-Print the tags in **tag36h11.pdf** then run the program
+Print **tag36h11.pdf** then run the program
 
 ## Requirement
 
-* OpenCV3.0
+* OpenCV3.2
 
 ## Build
 
 ```
+mkdir build
+cd build
+cmake ..
 make
 ```
 
 ## Run
 
 ```
-./apriltag_test
+cd build
+./apriltag_exe
 ```
