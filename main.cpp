@@ -49,35 +49,8 @@ int main()
 		duration = (end - start) / getTickFrequency();
 		fps = 1.0f / duration;
 
-		//draw all detected tags
 		for(int i = 0; i < (int)detections.size(); i++) {
-			p1.x = detections.at(i).p[0].first;
-			p1.y = detections.at(i).p[0].second;
-
-			p2.x = detections.at(i).p[1].first;
-			p2.y = detections.at(i).p[1].second;
-
-			p3.x = detections.at(i).p[2].first;
-			p3.y = detections.at(i).p[2].second;
-
-			p4.x = detections.at(i).p[3].first;
-			p4.y = detections.at(i).p[3].second;
-
-			tag_center.x = detections.at(i).cxy.first;
-			tag_center.y = detections.at(i).cxy.second;
-
-			cv::line(raw_image, p1, p2, Scalar(0, 255, 0), 2, CV_AA);
-			cv::line(raw_image, p2, p3, Scalar(0, 0, 255), 2, CV_AA);
-			cv::line(raw_image, p3, p4, Scalar(255, 0, 0), 2, CV_AA);
-			cv::line(raw_image, p4, p1, Scalar(255, 0, 0), 2, CV_AA);
-
-			cv::circle(raw_image, tag_center, 2, Scalar(0, 0, 255), 2, CV_AA, 0);
-
-			char tag_id_text[5];
-			sprintf(tag_id_text, "%d", detections.at(i).id);
-			CvPoint text_position(tag_center.x + 10, tag_center.y + 5);
-			cv::putText(raw_image, tag_id_text, text_position, FONT_HERSHEY_DUPLEX,
-				    1, Scalar(0, 0, 255));
+			detections.at(i).draw(raw_image);
 		}
 
 		if(detections.size() > 0) {
