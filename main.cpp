@@ -29,9 +29,6 @@ int main()
 	float start, end;
 	float duration, fps;
 
-	CvPoint p1, p2, p3, p4;
-	CvPoint tag_center;
-
 	while(video_capture.read(raw_image)) {
 		//start timer
 		start = getTickCount();
