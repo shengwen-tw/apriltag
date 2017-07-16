@@ -29,10 +29,10 @@ int main()
 	float start, end;
 	float duration, fps;
 
-	while(video_capture.read(raw_image)) {
-		//start timer
-		start = getTickCount();
+	//start timer
+	start = getTickCount();
 
+	while(video_capture.read(raw_image)) {
 		//convert to grey image
 		cv::cvtColor(raw_image, grey_image, CV_BGR2GRAY);
 
@@ -45,6 +45,7 @@ int main()
 		//calcuate fps
 		duration = (end - start) / getTickFrequency();
 		fps = 1.0f / duration;
+		start = end;
 
 		for(int i = 0; i < (int)detections.size(); i++) {
 			detections.at(i).draw(raw_image);
